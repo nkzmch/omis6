@@ -1,0 +1,66 @@
+﻿{% extends "base.html" %}
+
+{% block title %}О системе{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Информация о системе</h2>
+
+<div class="card mb-4">
+    <div class="card-header">Технические характеристики</div>
+    <div class="card-body">
+        <ul>
+            <li><strong>Версия:</strong> 1.0</li>
+            <li><strong>Архитектура:</strong> Трехуровневая (Модели-Сервисы-Представление)</li>
+            <li><strong>Фреймворк:</strong> Flask + Bootstrap</li>
+            <li><strong>Язык:</strong> Python 3.9+</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Модули системы</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Модели данных</h5>
+                <ul>
+                    <li>User, UserQuery</li>
+                    <li>Entity, KnowledgeGraph</li>
+                    <li>RawData, TransformedData</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Сервисы</h5>
+                <ul>
+                    <li>ETLService</li>
+                    <li>NLPService</li>
+                    <li>SearchService</li>
+                    <li>ChatbotService</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Веб-интерфейс</h5>
+                <ul>
+                    <li>Flask приложение</li>
+                    <li>7 страниц</li>
+                    <li>REST API</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Для лабораторной работы</div>
+    <div class="card-body">
+        <p>Система демонстрирует:</p>
+        <ol>
+            <li>✅ Объектно-ориентированную модель</li>
+            <li>✅ Интеграцию данных (ETL)</li>
+            <li>✅ Семантический анализ (NLP)</li>
+            <li>✅ Управление знаниями (графы)</li>
+            <li>✅ Веб-интерфейс пользователя</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

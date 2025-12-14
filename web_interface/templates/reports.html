@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Отчеты{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Генерация отчетов</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Создать новый отчет</h5>
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Название отчета:</label>
+                <input type="text" class="form-control" placeholder="Аналитический отчет">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Тип отчета:</label>
+                <select class="form-select">
+                    <option>Аналитический</option>
+                    <option>Сводный</option>
+                    <option>Сравнительный</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Сгенерировать отчет</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Доступные шаблоны отчетов</div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">Отчет по графам знаний</li>
+            <li class="list-group-item">Статистика системы</li>
+            <li class="list-group-item">Анализ поисковых запросов</li>
+            <li class="list-group-item">Активность пользователей</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

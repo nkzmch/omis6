@@ -1,0 +1,130 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Интеллектуальный чат-бот{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="mb-4">
+            <i class="fas fa-robot"></i> Интеллектуальный чат-бот
+        </h2>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-comments"></i> Диалог с системой
+            </div>
+            <div class="card-body" style="height: 400px; overflow-y: auto;" id="chat-window">
+                {% for message in history %}
+                {% if message.role == 'user' %}
+                <div class="chat-message user-message">
+                    <strong><i class="fas fa-user"></i> Вы:</strong>
+                    <p class="mb-0">{{ message.message }}</p>
+                    <small class="text-muted">{{ message.timestamp }}</small>
+                </div>
+                {% else %}
+                <div class="chat-message bot-message">
+                    <strong><i class="fas fa-robot"></i> Система:</strong>
+                    <p class="mb-0">{{ message.message }}</p>
+                    <small class="text-muted">{{ message.timestamp }}</small>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <form method="POST" action="/chatbot" id="chat-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="message"
+                               placeholder="Введите ваш вопрос..." id="message-input" required>
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-lightbulb"></i> Примеры вопросов
+            </div>
+            <div class="card-body">
+                <button class="btn btn-outline-secondary btn-sm mb-2 w-100 example-question">
+                    Привет, представься
+                </button>
+                <button class="btn btn-outline-secondary btn-sm mb-2 w-100 example-question">
+                    Найди информацию о технологиях
+                </button>
+                <button class="btn btn-outline-secondary btn-sm mb-2 w-100 example-question">
+                    Что такое граф знаний?
+                </button>
+                <button class="btn btn-outline-secondary btn-sm mb-2 w-100 example-question">
+                    Помоги найти отчеты
+                </button>
+                <button class="btn btn-outline-secondary btn-sm mb-2 w-100 example-question">
+                    Какие данные есть в системе?
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-cogs"></i> Возможности чат-бота
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Понимание естественного языка</li>
+                    <li><i class="fas fa-check text-success"></i> Поиск в базе знаний</li>
+                    <li><i class="fas fa-check text-success"></i> Генерация отчетов</li>
+                    <li><i class="fas fa-check text-success"></i> Анализ текста</li>
+                    <li><i class="fas fa-check text-success"></i> Контекстный диалог</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Прокрутка вниз чата
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    // Обработка примеров вопросов
+    document.querySelectorAll('.example-question').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('message-input').value = this.textContent;
+            document.getElementById('chat-form').submit();
+        });
+    });
+
+    // AJAX отправка сообщений
+    const form = document.getElementById('chat-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const message = document.getElementById('message-input').value;
+        if (!message.trim()) return;
+
+        // Отправка AJAX запроса
+        fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Обновление интерфейса
+                location.reload();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

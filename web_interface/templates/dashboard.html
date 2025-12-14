@@ -1,0 +1,146 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Панель управления{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">
+            <i class="fas fa-tachometer-alt"></i> Панель управления
+            <small class="text-muted">Добро пожаловать, {{ username }}!</small>
+        </h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ stats.graphs_count }}</h1>
+                <p class="card-text">Графов знаний</p>
+                <i class="fas fa-project-diagram fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ stats.total_entities }}</h1>
+                <p class="card-text">Семантических сущностей</p>
+                <i class="fas fa-tags fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ stats.documents_count }}</h1>
+                <p class="card-text">Документов</p>
+                <i class="fas fa-file-alt fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+            <div class="card-body text-center">
+                <h1 class="display-4">5</h1>
+                <p class="card-text">Сервисов системы</p>
+                <i class="fas fa-cogs fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-bolt"></i> Быстрые действия
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="/search" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-search"></i> Поиск знаний
+                    </a>
+                    <a href="/chatbot" class="btn btn-outline-success btn-lg">
+                        <i class="fas fa-robot"></i> Задать вопрос чат-боту
+                    </a>
+                    <a href="/knowledge-graphs" class="btn btn-outline-info btn-lg">
+                        <i class="fas fa-project-diagram"></i> Просмотр графов знаний
+                    </a>
+                    <a href="/nlp-analysis" class="btn btn-outline-warning btn-lg">
+                        <i class="fas fa-language"></i> NLP анализ текста
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-chart-line"></i> Активность системы
+            </div>
+            <div class="card-body">
+                <h5>Последние действия:</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i>
+                        Система успешно инициализирована
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-database text-primary"></i>
+                        Загружены демонстрационные данные
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-user text-info"></i>
+                        Пользователь {{ username }} вошел в систему
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-cogs text-warning"></i>
+                        Все сервисы активны и готовы к работе
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-sitemap"></i> Архитектура системы
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-layer-group text-primary"></i> Уровень моделей</h5>
+                        <ul>
+                            <li>Модели данных (сущности, отношения)</li>
+                            <li>Модели пользователей</li>
+                            <li>Перечисления и типы</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-cogs text-success"></i> Уровень сервисов</h5>
+                        <ul>
+                            <li>Сервис данных (ETL, хранение)</li>
+                            <li>Сервис анализа (NLP, ML)</li>
+                            <li>Сервис интерфейса (поиск, чат-бот)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-desktop text-warning"></i> Уровень представления</h5>
+                        <ul>
+                            <li>Веб-интерфейс (Flask)</li>
+                            <li>API для интеграции</li>
+                            <li>Шаблоны и статика</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

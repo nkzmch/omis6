@@ -1,0 +1,81 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+        <h1 class="mb-4">
+            <i class="fas fa-brain text-primary"></i> Система Управления Знаниями
+        </h1>
+        <p class="lead mb-4">
+            Интеграция, хранение и анализ структурированных данных и неструктурированных знаний
+        </p>
+
+        <div class="row mt-5">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-database fa-3x text-primary mb-3"></i>
+                        <h4>Интеграция данных</h4>
+                        <p>Подключение к разнородным источникам данных (SQL, NoSQL, API, файлы)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-project-diagram fa-3x text-success mb-3"></i>
+                        <h4>Графы знаний</h4>
+                        <p>Построение семантических сетей и онтологий</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-robot fa-3x text-warning mb-3"></i>
+                        <h4>AI анализ</h4>
+                        <p>Семантический анализ и генерация гипотез</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-search fa-3x text-info mb-3"></i>
+                        <h4>Интеллектуальный поиск</h4>
+                        <p>Поиск по смыслу, а не по ключевым словам</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">Вход в систему</h4>
+                <form action="/login" method="POST">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="username"
+                               placeholder="Введите ваше имя" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-sign-in-alt"></i> Войти в систему
+                    </button>
+                </form>
+                <p class="text-muted mt-3">
+                    Демо-доступ: введите любое имя для входа
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h3>Архитектура системы</h3>
+            <div class="mt-3">
+                <img src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgICBBW1BvZHNpc3RlbWEgaW50ZWdyYXRzaWkgZGFubnljaF0gLS0-IENbTG9na2Egb3JiZXN0cmF0c2lpIEVUTF1cbiAgICBDIC0tPiBEW0l6dmxlY2hlbmllIGRhbm55Y2hdXG4gICAgRCAtLT4gRVtUcmFuc2Zvcm1hdHNpeWEgZGFubnljaF1cbiAgICBFIC0tPiBGW1pncnV6a2EgZGFubnljaCB2IGhhcmFuaWxpc2NoZV1cbiAgICBGIC0tPiBHW0dyYWYgem5hbmldXG4gICAgRyAtLT4gSF1TZW1hbnRpY2hlc2tpaSBhbmFsaXpdXG4gICAgSCAtLT4gSVtQb2lzayBpIGdlbmVyYXRzaXlhIGdpcG90ZXpdXG4gICAgSSAtLT4gSltWZWItaW50ZXJmZWlzXSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"
+                     alt="Архитектура системы" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

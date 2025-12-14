@@ -1,0 +1,119 @@
+﻿{% extends "base.html" %}
+
+{% block title %}NLP анализ текста{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">
+            <i class="fas fa-language"></i> NLP анализ текста
+        </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="POST" action="/nlp-analysis">
+                    <div class="mb-3">
+                        <label class="form-label">Введите текст для анализа:</label>
+                        <textarea class="form-control" name="text" rows="5"
+                                  placeholder="Введите текст для семантического анализа...">{{ text }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Проанализировать текст
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if text %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-tags"></i> Извлеченные сущности
+                        <span class="badge bg-light text-dark float-end">{{ entities|length }} сущностей</span>
+                    </div>
+                    <div class="card-body">
+                        {% if entities %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Сущность</th>
+                                        <th>Тип</th>
+                                        <th>Уверенность</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entity in entities %}
+                                    <tr>
+                                        <td>{{ entity.name }}</td>
+                                        <td>
+                                            <span class="badge bg-info">{{ entity.entity_type.value }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar"
+                                                     style="width: {{ entity.confidence * 100 }}%">
+                                                    {{ "%.0f"|format(entity.confidence * 100) }}%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-muted">Сущности не найдены</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-chart-bar"></i> Анализ тональности
+                    </div>
+                    <div class="card-body text-center">
+                        <h3>{{ "%.1f"|format(sentiment * 100) }}%</h3>
+                        <div class="progress" style="height: 30px;">
+                            <div class="progress-bar bg-danger"
+                                 style="width: {{ sentiment * 100 }}%"></div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col text-start">Негативная</div>
+                            <div class="col text-center">
+                                {% if sentiment > 0.7 %}
+                                Позитивная
+                                {% elif sentiment > 0.4 %}
+                                Нейтральная
+                                {% else %}
+                                Негативная
+                                {% endif %}
+                            </div>
+                            <div class="col text-end">Позитивная</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">
+                        <i class="fas fa-info-circle"></i> О NLP анализе
+                    </div>
+                    <div class="card-body">
+                        <p>Система выполняет:</p>
+                        <ul>
+                            <li>Извлечение именованных сущностей (NER)</li>
+                            <li>Анализ тональности текста</li>
+                            <li>Токенизацию и лемматизацию</li>
+                            <li>Выявление ключевых концептов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

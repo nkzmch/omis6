@@ -1,0 +1,85 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Поиск знаний{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">
+            <i class="fas fa-search"></i> Семантический поиск
+        </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="POST" action="/search">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg"
+                               name="query" value="{{ query }}"
+                               placeholder="Введите ваш запрос на естественном языке...">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="fas fa-search"></i> Найти
+                        </button>
+                    </div>
+                    <div class="form-text mt-2">
+                        Примеры: "найди информацию о Microsoft", "отчеты по проектам", "связи между организациями"
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if query %}
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-list"></i> Результаты поиска по запросу: "{{ query }}"
+                <span class="badge bg-light text-dark float-end">{{ results|length }} найдено</span>
+            </div>
+            <div class="card-body">
+                {% if results %}
+                {% for result in results %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ result.title }}
+                            <span class="badge bg-info float-end">
+                                Релевантность: {{ "%.2f"|format(result.relevance) }}
+                            </span>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <i class="fas fa-tag"></i> {{ result.data_type }}
+                            <i class="fas fa-database ms-2"></i> {{ result.source }}
+                        </h6>
+                        <p class="card-text">{{ result.snippet }}</p>
+                        <div class="mt-2">
+                            <span class="badge bg-primary">ID: {{ result.id[:8] }}...</span>
+                            <span class="badge bg-secondary">Запрос: {{ result.query_id[:8] }}...</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    По вашему запросу ничего не найдено. Попробуйте изменить формулировку.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-lightbulb"></i> Как работает семантический поиск
+            </div>
+            <div class="card-body">
+                <p>Система использует несколько методов для поиска:</p>
+                <ol>
+                    <li><strong>Анализ естественного языка</strong> - понимание смысла запроса</li>
+                    <li><strong>Извлечение сущностей</strong> - поиск организаций, людей, мест</li>
+                    <li><strong>Поиск по графам знаний</strong> - анализ связей между сущностями</li>
+                    <li><strong>Ранжирование результатов</strong> - оценка релевантности</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

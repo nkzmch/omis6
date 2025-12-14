@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Графы знаний{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Графы знаний</h2>
+
+{% if graphs %}
+    {% for graph in graphs %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ graph.name }}</h5>
+        <p class="card-text">
+            <span class="badge bg-primary">{{ graph.entities|length }} сущностей</span>
+            <span class="badge bg-secondary ms-2">Создан: {{ graph.created_at.strftime('%d.%m.%Y') }}</span>
+        </p>
+
+        <h6>Сущности:</h6>
+        <div class="row">
+            {% for entity in graph.entities %}
+            <div class="col-md-3 mb-2">
+                <div class="border rounded p-2">
+                    <strong>{{ entity.name }}</strong><br>
+                    <small class="text-muted">{{ entity.entity_type.value }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    {% endfor %}
+{% else %}
+<div class="alert alert-info">
+    Нет доступных графов знаний
+</div>
+{% endif %}
+{% endblock %}
